@@ -1,0 +1,415 @@
+/*****************
+* Created by: Teddy Alejandro Moreira Velez
+* A todo App is an application to
+* register Todo Activities :D
+*****************/
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+:root{
+    --color-fg: rgb(61, 61, 61);
+    --color-bg: rgb(224, 224, 224);
+    --color-fg2: rgb(121,121,121);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+body{
+    width: 100%;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+}
+
+h1{
+    margin-top: 40px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 30pt;
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity .5s, transform 1s;
+}
+
+.appearH1{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.activity-entry-container{
+    margin: 40px 0;
+}
+
+.activity-entry-content{
+    position: relative;
+    height: 50px;
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: 1s opacity .5s, 1s transform .5s;
+}
+
+.appearActEntry{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.activity-entry{
+    display: block;
+    padding: 15px;
+    margin: 0 auto;
+    height: 100%;
+    width: 65%;
+    border: 2px solid var(--color-fg2);
+    border-radius: 3px;
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--color-fg);
+}
+
+.activity-entry:hover{
+    outline: 1px solid var(--color-fg2);
+}
+
+.activity-entry::placeholder{
+    font-size: 11pt;
+    font-weight: 500;
+}
+
+.activity-entry:focus{
+    outline: 1px solid var(--color-fg2);
+}
+
+#error-msg{
+    display: none;
+    margin: 0 auto;
+    margin-top: 8px;
+    padding: 5px;
+    width: 80%;
+    background-color: rgb(160, 159, 159);
+    font-size: 11pt;
+    font-weight: 700;
+}
+
+.btn-add-activity{
+    position: absolute;
+    display: block;
+    top: 50%;
+    right: 20%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    width: 25px;
+    height: 25px;
+    border: 2px solid var(--color-fg2);
+    border-radius: 50%;
+    text-align: center;
+    font-size: 12pt;
+    font-weight: 700;
+    color: var(--color-fg2);
+    cursor: pointer;
+    transition: background-color .2s, color .2s;
+}
+
+.btn-add-activity:hover{
+    background-color: var(--color-fg2);
+    color: #fff;
+}
+
+.activities-container{
+    margin: 0 50px;
+    font-size: 13pt;
+    font-weight: 500;
+}
+
+.activity-section{
+    position: relative;
+    margin: 20px 0;
+    width: 100%;
+    height: 28px;
+}
+
+.activity-section::after{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 0;
+    content: '';
+    height: 1px;
+    width: 85%;
+    background-image: linear-gradient(to right, rgba(185, 185, 185, .5), rgb(185, 185, 185), rgba(185, 185, 185, .5));
+}
+
+.activity-section input{
+    margin-right: 5px;
+}
+
+.opt-slider, .mobile-options{
+    display: none;
+}
+
+.desktop-edit-btns{
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.edit-btns{
+    border: none;
+    background-color: rgba(194, 194, 194, 0);
+    border-radius: 5px;
+    padding: 0 5px;
+    cursor: pointer;
+    margin: 0 5px;
+    font-size: 15pt;
+}
+
+.edit-btns:hover{
+    background-color: rgba(194, 194, 194, .5);
+}
+
+.edit-btn{
+    color: rgb(221, 184, 20);
+}
+
+.delete-btn{
+    color: rgb(219, 14, 14);
+}
+
+.edit-info-panel{
+    position: fixed;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 100;
+}
+
+.edit-info-container{
+    position: relative;
+    background-color: rgb(218, 218, 218);
+    border-radius: 15px;
+    height: 90px;
+    width: 80%;
+}
+
+.edit-info-input{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    padding: 15px;
+    margin: 0 auto;
+    height: 40%;
+    width: 85%;
+    border: 2px solid var(--color-fg2);
+    border-radius: 3px;
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--color-fg);
+}
+
+.close-edit-panel{
+    position: absolute;
+    display: inline-block;
+    top: -8px;
+    right: -8px;
+    border: none;
+    background-color: transparent;
+    color: var(--color-fg);
+    font-size: 18pt;
+    cursor: pointer;
+    transition: color .2s, transform .2s;
+}
+
+.close-edit-panel:hover{
+    color: rgb(44, 44, 44);
+    transform-origin: center;
+    transform: scale(1.4);
+}
+
+.close-edit-panel::after{
+    z-index: -1;
+    position: absolute;
+    content: '';
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: rgb(218, 218, 218);
+    right: 3px;
+    top: 5px;
+}
+
+.edit-info-check{
+    position: absolute;
+    display: inline-block;
+    top: 34%;
+    right: 9%;
+    border: none;
+    background-color: transparent;
+    color: rgb(218, 218, 218);
+    font-size: 18pt;
+    cursor: pointer;
+    transition: color .2s, transform .2s;
+    z-index: 110;
+    
+}
+
+.edit-info-check::before{
+    z-index: -1;
+    position: absolute;
+    content: '';
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: var(--color-fg);
+    right: 3px;
+    top: 5px;
+}
+
+.edit-info-check:hover{
+    color: rgb(184, 184, 184);
+    transform-origin: center;
+    transform: scale(1.12);
+}
+
+.error-edit-msg{
+    display: none;
+    margin: 0 auto;
+    margin-top: 8px;
+    padding: 5px;
+    width: 70%;
+    background-color: rgb(160, 159, 159);
+    font-size: 11pt;
+    font-weight: 700;
+}
+
+@media screen and (max-width:500px){
+    .activity-entry-content{
+        position: static;
+        display: block;
+        height: auto;
+    }
+
+    .activity-entry{
+        display: block;
+        margin: 0 auto;
+        padding: 15px;
+        height: 50px;
+        width: 65%;
+        border: 2px solid var(--color-fg2);
+        border-radius: 3px;
+        font-size: 11pt;
+        font-weight: 700;
+        color: var(--color-fg);
+    }
+
+    .activity-entry:hover{
+        outline: 1px solid var(--color-fg2);
+    }
+
+    .activity-entry::placeholder{
+        font-size: 11pt;
+        font-weight: 500;
+    }
+
+    .activity-entry:focus{
+        outline: 1px solid var(--color-fg2);
+    }
+
+    .btn-activity-container{
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: .4s opacity 1.2s, 1s transform 1s;
+    }
+
+    .appearAddBtn{
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .btn-add-activity{
+        position: static;
+        margin: 15px auto;
+        transform: translate(0px);
+        width: 20%;
+        height: 35px;
+        cursor: pointer;
+        border-style: none;
+        border-radius: 10px;
+        background-color: var(--color-fg);
+        color: #fff;
+        font-size: 15pt;
+        font-weight: 700;
+        transition: transform .2s;
+    }
+
+    .btn-add-activity:hover{
+        background-color: var(--color-fg);
+        transform: scale(1.1);
+    }
+
+    .opt-slider{
+        position: absolute;
+        display: inline-block;
+        right: 0;
+        border: none;
+        border-radius: 5px;
+        background-color: rgba(194, 194, 194, 0);
+        padding: 0 3px;
+        color: var(--color-fg2);
+        font-size: 13pt;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+
+    .opt-slider:hover{
+        background-color: rgba(194, 194, 194, .5);
+    }
+
+    .mobile-options{
+        position: absolute;
+        display: block;
+        right: 0;
+        width: 85px;
+        max-height: 0;
+        background-color: #fff;
+        overflow-y: hidden;
+        z-index: 10;
+        box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+        transition: max-height .3s ease-in;
+    }
+    
+    .mobile-options-opn{
+        max-height:80px;
+    }
+
+    .mobile-options ul{
+        list-style: none;
+    }
+
+    .mobile-options ul li a{
+        display: block;
+        padding: 5px;
+        width: 100%;
+        text-decoration: none;
+        color: var(--color-fg);
+        font-weight: 700;
+    }
+
+    .mobile-options ul li a:hover{
+        background-color: rgb(231, 231, 231);
+    }
+
+    .desktop-edit-btns{
+        display: none;
+    }
+
+}

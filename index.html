@@ -1,0 +1,43 @@
+<!--
+Created by: Teddy Alejandro Moreira Velez
+A todo App is an application to
+register Todo Activities :D
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="author" content="Alejandro Moreira">
+        <meta name="description" content="A todo web application">
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/ba52fcc0fa.js" crossorigin="anonymous"></script>
+	<script src="script/script.js"></script>
+	<link rel="stylesheet" href="style/estilo.css"></link>
+        <title>ToDo App</title>
+    </head>
+    <body>
+        <div class="edit-info-panel" id="edit-info-panel">
+            <div class="edit-info-container">
+                <button id="close-edit-panel" class="close-edit-panel"><i class="fa-solid fa-circle-xmark"></i></button>
+                <input type="text" id="edit-info-input" class="edit-info-input" placeholder="Edit your todo activity">
+                <button id="edit-info-check" class="edit-info-check"><i class="fa-solid fa-circle-check"></i></button>
+            </div>
+            <p class="error-edit-msg" id="error-edit-msg">* Porfavor rellene el campo</p>
+        </div>
+        <h1>ToDo App</h1>
+        <div class="activity-entry-container">
+            <div class="activity-entry-content">
+                <label for="activity-entry">
+                    <input type="text" id="activity-entry" class="activity-entry" placeholder="Write a todo activity">
+                </label>
+                <p id="error-msg">* El campo esta vacío</p>
+                <div class="btn-activity-container">
+                    <button id="btn-add-activity" class="btn-add-activity"><i class="fa-solid fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="activities-container" id="activities-container">
+            
+        </div>
+    </body>
+</html>
