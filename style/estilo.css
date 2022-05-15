@@ -291,7 +291,7 @@ h1{
     font-weight: 700;
 }
 
-@media screen and (max-width:500px){
+@media (max-width:500px){
     .activity-entry-content{
         position: static;
         display: block;
